@@ -33,7 +33,7 @@ const Submit = () => {
 
 		validationSchema: Yup.object({
 			title: Yup.string()
-				.min(5, 'Title must be more than 5 characters long.')
+				.min(2, 'Title must be at least 3 characters long.')
 				.max(21, 'Title must be less than 21 characters long.')
 				.required('Title is Required'),
 
