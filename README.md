@@ -31,7 +31,15 @@ There are plenty of things that can be improved but I consider the project to be
 
 ### Screenshots 📷
 
-...
+![Homepage](/assets/screenshots/Homepage.png?raw=true)
+
+![Subredext](/assets/screenshots/Subredext.png?raw=true)
+
+![Profile1](/assets/screenshots/Profile-Posts.png?raw=true)
+
+![Profile2](/assets/screenshots/Profile-Comments.png?raw=true)
+
+![Submit Subredext](/assets/screenshots/Submit-Subredext.png?raw=true)
 
 
 ### Running Locally 💡
