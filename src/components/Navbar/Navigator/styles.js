@@ -26,6 +26,10 @@ export const NavigatorContainer = styled.div`
 		border-bottom-color: ${({ active }) =>
 			active ? 'transparent' : '#343536'};
 	}
+
+	@media (max-width: 768px) {
+		display: none;
+	}
 `;
 
 export const NavigatorSelect = styled.div`

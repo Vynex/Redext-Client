@@ -16,7 +16,11 @@ import {
 } from './styles.js';
 
 const BlueStyle = { color: '#0079d3', marginRight: '1rem', fontSize: '1.3rem' };
-const GrnStyle = { color: '#FF4500', marginRight: '1rem', fontSize: '1.3rem' };
+const OrangeStyle = {
+	color: '#FF4500',
+	marginRight: '1rem',
+	fontSize: '1.3rem',
+};
 
 const Navigator = () => {
 	const location = useLocation();
@@ -84,7 +88,7 @@ const Navigator = () => {
 				<NavigatorLabel>Subscribed</NavigatorLabel>
 				{subscribed.map((sub) => (
 					<NavigatorOption key={sub._id} to={`/r/${sub.title}`}>
-						<RiFlightTakeoffFill style={GrnStyle} />
+						<RiFlightTakeoffFill style={OrangeStyle} />
 						r/{sub.title}
 					</NavigatorOption>
 				))}

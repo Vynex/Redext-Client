@@ -15,6 +15,10 @@ export const Nav = styled.nav`
 	position: fixed;
 	top: 0;
 	z-index: 9;
+
+	@media (max-width: 768px) {
+		padding: 0;
+	}
 `;
 
 export const NavStart = styled.div`

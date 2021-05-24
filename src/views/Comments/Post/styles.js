@@ -41,11 +41,15 @@ export const PostHeader = styled.div`
 
 export const PostMain = styled.div`
 	flex: 1;
-	padding: 0.4em 1em;
+	padding: 0.4rem 1rem;
 
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+
+	@media (max-width: 768px) {
+		padding: 0.8rem 0.1rem;
+	}
 `;
 
 export const PostMeta = styled.span`
@@ -67,7 +71,6 @@ export const PostTitle = styled.div`
 `;
 
 export const PostContent = styled.div`
-	margin-left: 0.2rem;
 	margin-bottom: 0.3rem;
 	padding: 1rem 1.5rem;
 
@@ -77,6 +80,10 @@ export const PostContent = styled.div`
 	line-height: 1.5rem;
 
 	flex: 1;
+
+	@media (max-width: 768px) {
+		padding: 1rem;
+	}
 `;
 
 export const PostActionsContainer = styled.div`

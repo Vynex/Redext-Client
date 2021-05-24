@@ -32,6 +32,10 @@ export const CommentContainer = styled.div`
 	&:hover {
 		border-color: #d7dadc;
 	}
+
+	@media (max-width: 768px) {
+		margin-left: ${({ top }) => (top ? '0' : '0.6')}rem;
+	}
 `;
 
 export const CommentStart = styled.div``;
