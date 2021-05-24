@@ -11,6 +11,10 @@ export const PostContainer = styled.article`
 
 	display: flex;
 
+	&:hover {
+		border: 1px solid #d7dadc;
+	}
+
 	@media (max-width: 768px) {
 		width: 90%;
 	}
