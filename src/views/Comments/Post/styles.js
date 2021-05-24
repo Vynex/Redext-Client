@@ -6,9 +6,14 @@ export const PostContainer = styled.article`
 	width: 100%;
 
 	display: flex;
+	flex-direction: column;
 `;
 
-export const PostSide = styled.div`
+export const PostTop = styled.div`
+	display: flex;
+`;
+
+export const VoteContainer = styled.div`
 	width: 2em;
 
 	display: flex;
@@ -27,6 +32,11 @@ export const VoteButton = styled.div`
 	align-items: center;
 
 	cursor: pointer;
+`;
+
+export const PostHeader = styled.div`
+	margin-left: 1rem;
+	flex: 1;
 `;
 
 export const PostMain = styled.div`
@@ -50,7 +60,7 @@ export const PostMetaContainer = styled.div`
 	color: #d7dadc;
 `;
 
-export const PostHeader = styled.div`
+export const PostTitle = styled.div`
 	font-weight: 600;
 	font-size: 1.5em;
 	padding: 0.3em 0 0.4em 0;

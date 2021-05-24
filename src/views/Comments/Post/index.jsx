@@ -25,12 +25,14 @@ import {
 	PostAction,
 	PostActionsContainer,
 	PostContainer,
-	PostHeader,
+	PostTitle,
 	PostMain,
 	PostMeta,
 	PostMetaContainer,
-	PostSide,
+	PostTop,
+	VoteContainer,
 	VoteButton,
+	PostHeader,
 } from './styles.js';
 import { setNotification } from '../../../reducers/notificationReducer.js';
 
@@ -64,51 +66,60 @@ const Post = ({ post, vote, isLogged }) => {
 
 	return (
 		<PostContainer>
-			<PostSide>
-				<VoteButton onClick={() => handleVote(1)}>
-					<RiArrowUpSLine color={vote === 1 ? '#ff5200' : 'inherit'} />
-				</VoteButton>
+			<PostTop>
+				<VoteContainer>
+					<VoteButton onClick={() => handleVote(1)}>
+						<RiArrowUpSLine color={vote === 1 ? '#ff5200' : 'inherit'} />
+					</VoteButton>
 
-				{post.score}
+					{post.score}
 
-				<VoteButton onClick={() => handleVote(-1)}>
-					<RiArrowDownSLine color={vote === -1 ? '#7193ff' : 'inherit'} />
-				</VoteButton>
-			</PostSide>
+					<VoteButton onClick={() => handleVote(-1)}>
+						<RiArrowDownSLine
+							color={vote === -1 ? '#7193ff' : 'inherit'}
+						/>
+					</VoteButton>
+				</VoteContainer>
+
+				<PostHeader>
+					<PostMetaContainer>
+						<PostMeta filled>
+							<Link to={`/r/${post.subredext?.title}`} style={SubStyle}>
+								r/{post.subredext?.title}
+							</Link>
+						</PostMeta>
+
+						<PostMeta>
+							Posted by{' '}
+							<Link
+								to={`/u/${post.owner.displayName}`}
+								style={MetaStyle}
+							>
+								u/{post.owner && post.owner.displayName}
+							</Link>
+						</PostMeta>
+
+						<PostMeta>
+							<Link
+								to={`/r/${post.subredext.title}/comments/${post._id}`}
+								style={MetaStyle}
+							>
+								{moment(post.createdAt).fromNow()}
+							</Link>
+						</PostMeta>
+
+						<PostMeta edited>
+							{post.editedAt && (
+								<>edited {moment(post.editedAt).fromNow()}</>
+							)}
+						</PostMeta>
+					</PostMetaContainer>
+
+					<PostTitle>{post.title}</PostTitle>
+				</PostHeader>
+			</PostTop>
 
 			<PostMain>
-				<PostMetaContainer>
-					<PostMeta filled>
-						<Link to={`/r/${post.subredext?.title}`} style={SubStyle}>
-							r/{post.subredext?.title}
-						</Link>
-					</PostMeta>
-
-					<PostMeta>
-						Posted by{' '}
-						<Link to={`/u/${post.owner.displayName}`} style={MetaStyle}>
-							u/{post.owner && post.owner.displayName}
-						</Link>
-					</PostMeta>
-
-					<PostMeta>
-						<Link
-							to={`/r/${post.subredext.title}/comments/${post._id}`}
-							style={MetaStyle}
-						>
-							{moment(post.createdAt).fromNow()}
-						</Link>
-					</PostMeta>
-
-					<PostMeta edited>
-						{post.editedAt && (
-							<>edited {moment(post.editedAt).fromNow()}</>
-						)}
-					</PostMeta>
-				</PostMetaContainer>
-
-				<PostHeader>{post.title}</PostHeader>
-
 				<Content
 					isEditing={isEditing}
 					cancelEditing={() => setIsEditing(false)}
