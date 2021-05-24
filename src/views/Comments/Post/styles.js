@@ -6,10 +6,6 @@ export const PostContainer = styled.article`
 	width: 100%;
 
 	display: flex;
-
-	@media (max-width: 768px) {
-		width: 90%;
-	}
 `;
 
 export const PostSide = styled.div`
@@ -63,7 +59,7 @@ export const PostHeader = styled.div`
 export const PostContent = styled.div`
 	margin-left: 0.2rem;
 	margin-bottom: 0.3rem;
-	padding: 1rem 2.5rem;
+	padding: 1rem 1.5rem;
 
 	border-radius: 5px;
 	background-color: #202021;

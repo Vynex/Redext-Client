@@ -25,7 +25,7 @@ export const CommentsContainer = styled.div`
 export const CommentContainer = styled.div`
 	margin-top: 1.2rem;
 	margin-left: ${({ top }) => (top ? '0' : '0.8')}rem;
-	margin-bottom: 1.5rem;
+	margin-bottom: 2rem;
 
 	border-left: ${({ border }) => (border ? '2' : '0')}px solid #343536;
 
