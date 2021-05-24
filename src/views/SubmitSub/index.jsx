@@ -35,6 +35,7 @@ const Submit = () => {
 			title: Yup.string()
 				.min(2, 'Title must be at least 3 characters long.')
 				.max(21, 'Title must be less than 21 characters long.')
+				.matches(/^[aA-zZ]+$/, 'Subredext Title can only contain Letters.')
 				.required('Title is Required'),
 
 			description: Yup.string()
