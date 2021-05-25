@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import {
 	RiMessage3Line,
@@ -36,7 +36,6 @@ const ActionStyle = { color: 'inherit', textDecoration: 'none' };
 
 const Post = ({ post: pID, vote: initialVote, isLogged }) => {
 	const dispatch = useDispatch();
-	const history = useHistory();
 
 	const [vote, setVote] = useState(null);
 	const [post, setPost] = useState(null);
@@ -69,16 +68,12 @@ const Post = ({ post: pID, vote: initialVote, isLogged }) => {
 		);
 	};
 
-	const handleOpen = () => {
-		history.push(`/r/${post.subredext.title}/comments/${post._id}`);
-	};
-
 	if (post === null) return <Placeholder />;
 
 	const commentCount = post.comments?.length;
 
 	return (
-		<PostContainer onClick={handleOpen}>
+		<PostContainer>
 			<PostSide>
 				<VoteButton onClick={() => handleVote(1)}>
 					<RiArrowUpSLine color={vote === 1 ? '#ff5200' : 'inherit'} />
