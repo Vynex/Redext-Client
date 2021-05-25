@@ -61,11 +61,15 @@ const Comment = ({ cID }) => {
 						r/{sub.title}
 					</CommentLink>
 					• Posted by
-					<CommentLink
-						onClick={() => history.push(`/u/${op.owner.displayName}`)}
-					>
-						{op.owner.displayName}
-					</CommentLink>
+					{!op.owner ? (
+						' [deleted]'
+					) : (
+						<CommentLink
+							onClick={() => history.push(`/u/${op.owner.displayName}`)}
+						>
+							{op.owner.displayName}
+						</CommentLink>
+					)}
 				</CommentMeta>
 			</CommentHeader>
 

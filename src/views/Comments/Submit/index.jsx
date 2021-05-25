@@ -29,6 +29,8 @@ const Submit = ({ isLogged, username, cID = null, handleClose }) => {
 	const handleSubmit = async () => {
 		if (!isLogged) return dispatch(toggleModal('Login'));
 
+		if (!content) return;
+
 		const notification = {};
 
 		try {

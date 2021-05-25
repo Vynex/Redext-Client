@@ -21,6 +21,7 @@ import {
 import { Main, Content, Sidebar } from '../styles.js';
 import { Card } from './styles.js';
 import { clearPost, setPost } from '../../reducers/postReducer';
+import DeleteModal from './Replies/DeleteModal';
 
 const Comments = () => {
 	const dispatch = useDispatch();
@@ -76,6 +77,8 @@ const Comments = () => {
 					<Replies isLogged={user !== null} pID={pID} />
 				</Card>
 			</Content>
+
+			<DeleteModal />
 
 			<Sidebar>
 				<About subredext={subredext} />

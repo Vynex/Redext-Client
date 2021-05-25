@@ -1,4 +1,9 @@
-import { getPost, newPost, updatePost } from '../services/posts.js';
+import {
+	destroyPost,
+	getPost,
+	newPost,
+	updatePost,
+} from '../services/posts.js';
 
 const reducer = (state = null, action) => {
 	switch (action.type) {
@@ -9,6 +14,9 @@ const reducer = (state = null, action) => {
 			return action.data;
 
 		case 'EDIT_POST':
+			return action.data;
+
+		case 'DELETE_POST':
 			return action.data;
 
 		case 'CLEAR_POST':
@@ -47,6 +55,17 @@ export const editPost = (id, content) => {
 
 		dispatch({
 			type: 'EDIT_POST',
+			data,
+		});
+	};
+};
+
+export const deletePost = (id) => {
+	return async (dispatch) => {
+		const data = await destroyPost(id);
+
+		dispatch({
+			type: 'DELETE_POST',
 			data,
 		});
 	};

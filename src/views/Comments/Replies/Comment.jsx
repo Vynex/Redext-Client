@@ -7,6 +7,7 @@ import {
 	RiMessage3Line,
 	RiArrowUpSLine,
 	RiArrowDownSLine,
+	RiDeleteBin5Line,
 } from 'react-icons/ri';
 
 import Submit from '../Submit';
@@ -30,17 +31,21 @@ import {
 	CommentStart,
 	ScoreContainer,
 } from './styles.js';
+import DeleteModal from './DeleteModal';
+import { ModalOverlay } from '../styles';
 
 const LinkStyle = { fontSize: 'inherit', color: 'inherit' };
 
 const Comment = ({ isLogged, comment, index }) => {
 	const dispatch = useDispatch();
 
+	const user = useSelector(({ user }) => user);
 	const votedComments = useSelector(({ comments }) => comments.voted);
 
 	const [vote, setVote] = useState(0);
 	const [score, setScore] = useState(comment.score);
 	const [showReply, setShowReply] = useState(false);
+	const [modalActive, setModalActive] = useState(false);
 
 	useEffect(() => {
 		(async () => {
@@ -58,16 +63,17 @@ const Comment = ({ isLogged, comment, index }) => {
 	};
 
 	const handleVote = async (direction) => {
-		if (!isLogged) {
-			return dispatch(toggleModal('Login'));
-		}
+		if (!comment.deleted) {
+			if (!isLogged) return dispatch(toggleModal('Login'));
 
-		dispatch(removeVoteComment(comment._id));
-		if (direction === 1 && vote !== 1) {
-			dispatch(addUpvoteComment(comment._id));
-		}
-		if (direction === -1 && vote !== -1) {
-			dispatch(addDownvoteComment(comment._id));
+			dispatch(removeVoteComment(comment._id));
+
+			if (direction === 1 && vote !== 1) {
+				dispatch(addUpvoteComment(comment._id));
+			}
+			if (direction === -1 && vote !== -1) {
+				dispatch(addDownvoteComment(comment._id));
+			}
 		}
 	};
 
@@ -76,9 +82,13 @@ const Comment = ({ isLogged, comment, index }) => {
 	return (
 		<CommentContainer top={index === 0 ? true : false}>
 			<CommentStart>
-				<Link to={`/u/${comment.owner.displayName}`} style={LinkStyle}>
-					u/{comment.owner.displayName}
-				</Link>
+				{comment.deleted ? (
+					comment.content
+				) : (
+					<Link to={`/u/${comment.owner.displayName}`} style={LinkStyle}>
+						u/{comment.owner.displayName}
+					</Link>
+				)}
 				<CommentDate>{moment(comment.createdAt).fromNow()}</CommentDate>
 			</CommentStart>
 
@@ -97,10 +107,19 @@ const Comment = ({ isLogged, comment, index }) => {
 					</CommentAction>
 				</ScoreContainer>
 
-				<CommentAction onClick={(e) => setShowReply(!showReply)}>
-					<RiMessage3Line />
-					Reply
-				</CommentAction>
+				{comment.deleted ? null : (
+					<CommentAction onClick={(e) => setShowReply(!showReply)}>
+						<RiMessage3Line />
+						Reply
+					</CommentAction>
+				)}
+
+				{user?.id === comment.owner?._id && (
+					<CommentAction onClick={() => setModalActive(true)}>
+						<RiDeleteBin5Line />
+						Delete
+					</CommentAction>
+				)}
 			</CommentEnd>
 
 			{typeof comment.children[0] !== 'object' &&
@@ -135,6 +154,14 @@ const Comment = ({ isLogged, comment, index }) => {
 					/>
 				</CommentContainer>
 			)}
+
+			{modalActive && <ModalOverlay />}
+
+			<DeleteModal
+				visible={modalActive}
+				cID={comment._id}
+				handleClose={() => setModalActive(false)}
+			/>
 		</CommentContainer>
 	);
 };

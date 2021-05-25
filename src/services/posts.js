@@ -34,3 +34,12 @@ export const updatePost = async (id, content) => {
 
 	return data;
 };
+
+export const destroyPost = async (id) => {
+	const { data } = await axios.delete(baseURL, {
+		headers: setAuth(),
+		params: { pID: id },
+	});
+
+	return data;
+};

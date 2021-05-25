@@ -20,7 +20,7 @@ export const register = async (credentials) => {
 };
 
 export const getUser = async () => {
-	const { data } = await axios.get(baseURL + '/me/info', {
+	const { data } = await axios.get(baseURL + 'me/info', {
 		headers: { Authorization: token },
 	});
 

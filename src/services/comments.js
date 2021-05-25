@@ -22,3 +22,12 @@ export const newComment = async (pID, cID, content) => {
 
 	return data;
 };
+
+export const destroyComment = async (cID) => {
+	const { data } = await axios.delete(baseURL, {
+		headers: setAuth(),
+		params: { cID },
+	});
+
+	return data;
+};

@@ -8,6 +8,7 @@ import {
 	RiPencilLine,
 	RiArrowUpSLine,
 	RiArrowDownSLine,
+	RiDeleteBin5Line,
 } from 'react-icons/ri';
 
 import Content from './Content.jsx';
@@ -35,6 +36,8 @@ import {
 	PostHeader,
 } from './styles.js';
 import { setNotification } from '../../../reducers/notificationReducer.js';
+import { ModalOverlay } from '../styles.js';
+import DeleteModal from './DeleteModal.jsx';
 
 const SubStyle = { color: '#d7dadc' };
 const MetaStyle = { color: '#6c6e6f' };
@@ -44,6 +47,7 @@ const Post = ({ post, vote, isLogged }) => {
 	const user = useSelector(({ user }) => user);
 
 	const [isEditing, setIsEditing] = useState(false);
+	const [modalActive, setModalActive] = useState(false);
 
 	const handleShare = () => {
 		navigator.clipboard.writeText(window.location.href);
@@ -57,11 +61,14 @@ const Post = ({ post, vote, isLogged }) => {
 	};
 
 	const handleVote = async (direction) => {
-		if (!isLogged) return dispatch(toggleModal('Login'));
+		if (!post.deleted) {
+			if (!isLogged) return dispatch(toggleModal('Login'));
 
-		dispatch(removeVotePost(post._id));
-		if (direction === 1 && vote !== 1) dispatch(addUpvotePost(post._id));
-		if (direction === -1 && vote !== -1) dispatch(addDownvotePost(post._id));
+			dispatch(removeVotePost(post._id));
+			if (direction === 1 && vote !== 1) dispatch(addUpvotePost(post._id));
+			if (direction === -1 && vote !== -1)
+				dispatch(addDownvotePost(post._id));
+		}
 	};
 
 	return (
@@ -91,12 +98,16 @@ const Post = ({ post, vote, isLogged }) => {
 
 						<PostMeta>
 							Posted by{' '}
-							<Link
-								to={`/u/${post.owner.displayName}`}
-								style={MetaStyle}
-							>
-								u/{post.owner && post.owner.displayName}
-							</Link>
+							{post.deleted ? (
+								'[deleted]'
+							) : (
+								<Link
+									to={`/u/${post.owner.displayName}`}
+									style={MetaStyle}
+								>
+									u/{post.owner && post.owner.displayName}
+								</Link>
+							)}
 						</PostMeta>
 
 						<PostMeta>
@@ -134,7 +145,7 @@ const Post = ({ post, vote, isLogged }) => {
 							<ActionText>{post.comments.length} Comments</ActionText>
 						</PostAction>
 
-						{user?.id === post.owner._id && (
+						{user?.id === post.owner?._id && (
 							<PostAction
 								onClick={() => setIsEditing((prevState) => !prevState)}
 							>
@@ -147,11 +158,26 @@ const Post = ({ post, vote, isLogged }) => {
 							<RiShareForwardLine />
 							<ActionText>Share</ActionText>
 						</PostAction>
+
+						{user?.id === post.owner?._id && (
+							<PostAction onClick={() => setModalActive(true)}>
+								<RiDeleteBin5Line />
+								<ActionText>Delete</ActionText>
+							</PostAction>
+						)}
 					</ActionStart>
 
 					<ActionEnd>{post.upvoteRatio * 100}% Upvoted</ActionEnd>
 				</PostActionsContainer>
 			</PostMain>
+
+			{modalActive && <ModalOverlay />}
+
+			<DeleteModal
+				visible={modalActive}
+				pID={post._id}
+				handleClose={() => setModalActive(false)}
+			/>
 		</PostContainer>
 	);
 };

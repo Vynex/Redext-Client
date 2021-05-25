@@ -49,11 +49,14 @@ const Post = ({ post: pID, vote: initialVote, isLogged }) => {
 	}, [initialVote, pID]);
 
 	const handleVote = async (direction) => {
-		if (!isLogged) return dispatch(toggleModal('Login'));
+		if (!post.deleted) {
+			if (!isLogged) return dispatch(toggleModal('Login'));
 
-		dispatch(removeVotePost(post._id));
-		if (direction === 1 && vote !== 1) dispatch(addUpvotePost(post._id));
-		if (direction === -1 && vote !== -1) dispatch(addDownvotePost(post._id));
+			dispatch(removeVotePost(post._id));
+			if (direction === 1 && vote !== 1) dispatch(addUpvotePost(post._id));
+			if (direction === -1 && vote !== -1)
+				dispatch(addDownvotePost(post._id));
+		}
 	};
 
 	const handleShare = () => {
@@ -96,9 +99,16 @@ const Post = ({ post: pID, vote: initialVote, isLogged }) => {
 
 					<PostMeta>
 						Posted by{' '}
-						<Link to={`/u/${post.owner.displayName}`} style={LinkStyle}>
-							u/{post.owner && post.owner.displayName}
-						</Link>
+						{post.deleted ? (
+							'[deleted]'
+						) : (
+							<Link
+								to={`/u/${post.owner.displayName}`}
+								style={LinkStyle}
+							>
+								u/{post.owner && post.owner.displayName}
+							</Link>
+						)}
 					</PostMeta>
 
 					<PostMeta>

@@ -1,8 +1,9 @@
-import { newComment } from '../services/comments.js';
+import { newComment, destroyComment } from '../services/comments.js';
 import { getComments } from '../services/feed.js';
 import { getVotedComments, voteComment } from '../services/vote.js';
 import addLeaf from '../utils/addLeaf.js';
 import replaceBranch from '../utils/replaceBranch.js';
+import replaceLeaf from '../utils/deleteComment.js';
 
 const initialState = {
 	data: [],
@@ -43,6 +44,15 @@ const reducer = (state = initialState, action) => {
 
 			return {
 				data: [...state.data, ...addState],
+				voted: state.voted,
+			};
+
+		case 'DELETE_COMMENT':
+			const deleteState = replaceLeaf(state.data, action.data);
+			state.data = [];
+
+			return {
+				data: [...state.data, ...deleteState],
 				voted: state.voted,
 			};
 
@@ -134,6 +144,17 @@ export const addComment = (pID, cID, content) => {
 				id: cID,
 				data,
 			},
+		});
+	};
+};
+
+export const deleteComment = (cID) => {
+	return async (dispatch) => {
+		const data = await destroyComment(cID);
+
+		dispatch({
+			type: 'DELETE_COMMENT',
+			data,
 		});
 	};
 };
