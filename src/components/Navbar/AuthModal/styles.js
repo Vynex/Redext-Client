@@ -41,6 +41,10 @@ export const ModalSide = styled.div`
 
 	background-image: url('${authBanner}');
 	background-size: cover;
+
+	@media (max-width: 768px) {
+		display: none;
+	}
 `;
 
 export const ModalMain = styled.div`
@@ -87,6 +91,10 @@ export const ModalInput = styled.input`
 
 	&::placeholder {
 		color: #a5a4a4;
+	}
+
+	@media (max-width: 768px) {
+		width: 100%;
 	}
 `;
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 export const NavigatorContainer = styled.div`
 	width: 20rem;
 	height: 2.1rem;
+	margin: 0 1rem;
 	padding: 0 1rem;
 
 	background-color: #1a1a1b;

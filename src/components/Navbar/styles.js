@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Nav = styled.nav`
-	padding: 0 2em;
+	padding: 0 2rem;
 	height: 3.6rem;
 	width: 100%;
 
@@ -17,13 +17,13 @@ export const Nav = styled.nav`
 	z-index: 9;
 
 	@media (max-width: 768px) {
-		padding: 0;
+		padding: 0 1rem;
 	}
 `;
 
 export const NavStart = styled.div`
 	height: 100%;
-	width: 12rem;
+	width: 9rem;
 
 	display: flex;
 	justify-content: center;
