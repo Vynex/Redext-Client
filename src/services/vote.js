@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { token } from './user.js';
 
-const baseURL = 'https://redext-api.herokuapp.com/api/';
+const baseURL = 'https://redext-api.onrender.com/api/';
 
 const setAuth = () => ({ Authorization: token });
 

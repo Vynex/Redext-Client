@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseURL = 'https://redext-api.herokuapp.com/api/';
+const baseURL = 'https://redext-api.onrender.com/api/';
 
 export let token = null;
 

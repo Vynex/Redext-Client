@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://redext-api.herokuapp.com/api/profiles/';
+const baseURL = 'https://redext-api.onrender.com/api/profiles/';
 
 export const getProfile = async (username) => {
 	const { data } = await axios.get(baseURL, { params: { username } });
